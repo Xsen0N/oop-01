@@ -41,10 +41,10 @@ namespace Lab1
 
             Console.WriteLine($"Целое положительное число: {unum}");
 
-            Console.WriteLine($" Трехзначное число {obj}, {dnum}, {ulnum}");
+            Console.WriteLine($" Трехзначные числа {obj}, {dnum}, {ulnum}");
 
             Console.WriteLine("Число больше 0: {0}  Буква : {2}  Меньше 0 : {1}", bnum, sbnum, a);
-            Console.Write("Введите свое любтиое блюдо: ");
+            Console.Write("Введите свое любимое блюдо: ");
             string dish = Console.ReadLine();
             Console.WriteLine($"Отлично! {dish} - это вкусно)");
             //part b
@@ -127,6 +127,94 @@ namespace Lab1
             {
                 Console.WriteLine("По плану");
             }
+            //- - -- - - - -- - - - - - - -- - -- - - - - - - - -- -  -
+            //Strings
+            //a
+            string strA = "Hello world";
+            string strB = "Hello C#";
+
+            int result = string.Compare(strA, strB);
+
+            Console.WriteLine($"{result}"); //Данная версия метода Compare принимает две строки и возвращает число. Если первая строка по алфавиту стоит выше второй,
+                                            //то возвращается число меньше нуля. В противном случае возвращается число больше нуля. 
+                                            //И третий случай - если строки равны, то возвращается число 0.
+                                            //b
+            string str1 = "Motherfucker";
+            string str2 = "wake";
+            string str3 = "up";
+
+            string str_res = str1 + " " + str2 + " " + str3;
+            string str_res_end = string.Concat(str_res, "!!!"); //конкатенация строк
+
+            Console.WriteLine(str_res_end);
+
+            var original = "This is a sentence. This is a second sentence.";
+            var sentence1 = original.Substring(0, original.IndexOf(".") + 1);
+
+            Console.WriteLine(original);
+            Console.WriteLine(sentence1); // обрезка конкретной части строки
+
+            string text2 = "И поэтому все так произошло";
+            //разделение строки на слова
+            string[] words = text2.Split(new char[] { ' ' });
+
+            foreach (string s in words)
+            {
+                Console.WriteLine(s);
+            }
+            //обрезка через Trim
+            string text3 = " hello world ";
+
+            text3 = text3.Trim(); // результат "hello world"
+
+            text3 = text3.Trim(new char[] { 'd', 'h' }); // результат "ello worl"
+                                                         //вставка в конкретную позицию через insert
+            string text1 = "Хороший день";
+
+            string substring = "замечательный ";
+
+            text1 = text1.Insert(8, substring);
+
+            Console.WriteLine(text1);    // Хороший замечательный день
+                                         //удаление подстроки
+            string str6 = "GeeksForGeeks";
+
+            Console.WriteLine("NewString: " + str6.Replace('e', ' '));
+
+            string name = "Tom";
+            int age = 23;
+
+            Console.WriteLine($"Имя: {name}  Возраст: {age}"); //Знак доллара перед строкой указывает, что будет осуществляться интерполяция строк. 
+                                                               //Внутри строки опять же используются плейсхолдеры {...},
+                                                               //только внутри фигурных скобок уже можно напрямую писать те выражения, которые мы хотим вывести.
+                                                               //Интерполяция по сути представляет более лаконичное форматирование. 
+                                                               //При этом внутри фигурных скобок мы можем указывать не только свойства, но и различные выражения языка C#
+                                                               //cString.IsNullOrEmpty
+            string str8 = null;         // initialize by null value
+            bool checkout1 = String.IsNullOrEmpty(str8);
+            Console.WriteLine($"{checkout1}");
+
+            string str9 = String.Empty;  // initialize by empty value
+            bool checkout2 = String.IsNullOrEmpty(str9);
+            Console.WriteLine($"{checkout2}");
+
+            var sb = new StringBuilder("Привет мир");
+            sb.Append("!");
+            sb.Insert(7, "компьютерный ");
+            Console.WriteLine(sb);  // Привет компьютерный мир!
+
+            // заменяем слово
+            sb.Replace("мир", "world");
+            Console.WriteLine(sb);  // Привет компьютерный world!
+
+            // удаляем 13 символов, начиная с 7-го
+            sb.Remove(7, 13);
+            Console.WriteLine(sb);  // Привет world!
+
+            // получаем строку из объекта StringBuilder
+            string text = sb.ToString();
+            Console.WriteLine(text);    // Привет world!
+
         }
     }
 }
