@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 
 namespace Strings
 {
@@ -111,6 +112,14 @@ namespace Strings
             Console.WriteLine("CompareTo: " + emptyString.CompareTo(nullString));
             Console.WriteLine("String.Concat: " + String.Concat(nullString, emptyString));
             Console.WriteLine("Interpolation: " + $"{nullString}{emptyString}");
+
+            //---------------------------задание 4
+            //StringBuilder - класс - Предоставляет изменяемую строку символов. Этот класс не наследуется.
+            StringBuilder sb = new StringBuilder("Hello, World");
+            Console.WriteLine($"Удаление c 1 позиций 3-ух символов: {sb.Remove(1, 3)}");
+            sb = sb.Insert(0, "!!!");
+            sb = sb.Insert(7, "!!!");
+            Console.WriteLine($"Добавление новых символов в начало и в середину строки: {sb}");
         }
     }
 }
