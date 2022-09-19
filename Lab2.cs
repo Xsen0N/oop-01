@@ -5,14 +5,15 @@ namespace OOP2
     public partial class Phone {
         private readonly int ID;
         private string name;
-        private string surname { get; set; }; // можно так инициализировать
-        private string patronymic { get; set; }
-        private string addres {get; set;}
+        public string surname { get; set; }; // можно так инициализировать
+        public string patronymic { get; set; }
+        public string addres {get; set;}
         private string cardnum;
-        private long timeoftalk { get; set; }
+        public long timeoftalk { get; set; }
         public long kredit { private set; get; }
         private long debit;
         static int counter = 0;
+        public const int SpeedOfsound = 300; // m per sec.
         private static string about = "Класс, для представления данных об обладателе телефона";
 
                                 //       private Phone(){}// не допускает других конструкторов по умолчанию
@@ -30,10 +31,11 @@ namespace OOP2
             this.cardnum = cardnum;
         }
 
-        public Phone(string n, long calltime)
+        public Phone(string n, long calltime, long k))
         {
             n = name;
-            calltime = timeoftalk;
+            k = kredit;
+            a = addres;
         }
         public Phone()
         {
@@ -87,21 +89,72 @@ namespace OOP2
         }
 
         public static string GetInfo() { return about; }
+
+        internal void Balance(long k, long d, out long money)
+        {
+            money = d - k;
+            Console.WriteLine("Balance: " + money);
+        }
     }
     class Lab2
     {
         static void Main(string[] args)
         {
-            // Phone phone = new Phone(10, "Катя", "Иванова", "12345678");    
-            Phone phone = new Phone();
-            phone.setcardnum("1234");
-            phone.setcardnum("1234123412341234");
-            Console.WriteLine(phone.getcardnum());
-            //int n = 3;
-            //Phone[] abonents = new Phone[n];
+            Console.WriteLine(Phone.GetInfo());
+            Phone[] abonents = new Phone[4];
+            abonents[0] = new Phone("Иванова");
+            abonents[1] = new Phone(abonents[0]);
+            abonents[2] = new Phone("Светлана", "ул. Светлова 36,96", 452);
+            abonents[3] = new Phone();
+            abonents[1].setcardnum("1234");//некорректный ввод, проверяемый в сеттере
+            abonents[1].setname("Екатерина");
+            Console.WriteLine(abonents[1].getname());
+            Console.WriteLine("Тип созданного объекта" + abonents[1].GetType());
+            abonents[0].setDeb(486);
+            abonents[0].Balance(45454, 484848, out long resulte);
+            abonents[1].setcardnum("1234123412341234");
+            abonents[0].setcardnum("4321432143214321");
+            abonents[2].setcardnum("1234567899874563");
+            abonents[3].setcardnum("7856412398548654");
+            Console.WriteLine(abonents[1].getcardnum());
             Console.WriteLine("Заданное время межгородских перпеговоров: ");
-            int time = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("Client's ID " + phone.GetHashCode());
+            abonents[1].timeoftalk = Convert.ToInt32(Console.ReadLine());
+            abonents[0].timeoftalk = 4585325;
+            abonents[3].timeoftalk = 2355;
+            //внутригородские разговоры
+            abonents[1].timeoftalkcity = 21;
+            abonents[0].timeoftalkcity = 4585325;
+            abonents[2].timeoftalkcity = 0;
+            abonents[3].timeoftalkcity = 60;
+            Console.WriteLine("Client's ID " + abonents[1].GetHashCode() + "\n");
+            Console.WriteLine(abonents[1].ToString());
+            int limit = 90;
+            Console.WriteLine("Cведения об абонентах, у которых время внутригородских разговоров превышает заданное");
+            for (int i = 0; i < 4; i++)
+            {
+                if (abonents[i].timeoftalkcity > limit)
+                {
+                    Console.WriteLine(abonents[i].ToString() + "\n");
+                }
+
+            }
+            Console.WriteLine("Сведения об абонентах, которые пользовались междугородной связью");
+            for (int i = 0; i < 4; i++)
+            {
+                if (abonents[i].timeoftalk > 0)
+                {
+                    Console.WriteLine(abonents[i].ToString() + "\n");
+                }
+
+            }
+            var phone = new Phone { surname = "Tomson" };
+            Console.WriteLine(phone.surname); // 
+            var phone3 = new Phone { surname = "Nekenson" };
+            var phone2 = new Phone { surname = "Tomson" };
+            bool pEqualsP2 = phone.Equals(phone2);   // false
+            bool pEqualsP3 = phone.Equals(phone3);   // true
+            Console.WriteLine(pEqualsP2);
+            Console.WriteLine(pEqualsP3);
         }
     }
 }
