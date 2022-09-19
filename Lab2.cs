@@ -3,40 +3,31 @@
 namespace OOP2
 {
     public partial class Phone {
-        private int id; 
+        private readonly int ID;
         private string name;
-        public readonly string surname = "Undefined"; // можно так инициализировать
-        private string patronymic;
+        private string surname { get; set; }; // можно так инициализировать
+        private string patronymic { get; set; }
         private string addres {get; set;}
         private string cardnum;
-        private long timeoftalk;
-        private long kredit;/* {get; set;}*/
+        private long timeoftalk { get; set; }
+        public long kredit { private set; get; }
         private long debit;
-        static int nums = 7;
+        static int counter = 0;
         private static string about = "Класс, для представления данных об обладателе телефона";
-    public readonly string ID;  // можно так инициализировать
-      //       private Phone(){}// не допускает других конструкторов по умолчанию
-    public Phone(Phone phone )
-        { //// в конструкторе также можно присвоить значение полю для чтения, а через метод - нет
-            phone.GetHashCode();
+
+                                //       private Phone(){}// не допускает других конструкторов по умолчанию
+        public static int Counter => counter; //для подсчета создпнных объектов
+
+        public Phone(Phone phone)
+        {
+            ID = phone.GetHashCode();
+            Console.WriteLine("Client's ID: " + ID);
         }
-        public Phone(string surname)
-        { //// в конструкторе также можно присвоить значение полю для чтения, а через метод - нет
-            this.surname = surname;
-        }
-        public Phone(int id, string name, string cardnum) {
-            this.id = id;
+        public Phone(string surname) => this.surname = surname;
+
+        public Phone( string name, string cardnum) {
             this.name = name;
             this.cardnum = cardnum;
-        }
-        static Phone(){
-            if (DateTime.Now.Year == 2022)
-                nums = 7;
-            else
-                nums = 2;
-        }
-        public Phone(int id) : this()
-        {
         }
 
         public Phone(string n, long calltime)
@@ -46,12 +37,12 @@ namespace OOP2
         }
         public Phone()
         {
-            id = 0;
             name = "Noname";
             surname = "Nosuname";
             patronymic = "Nopatronymic";
             addres = "aaaaaaaaaaaaaaaa";
             timeoftalk = 0;
+            counter++;
         }
         public void setname(string name)
         {
@@ -75,24 +66,26 @@ namespace OOP2
             } else {
                 Console.WriteLine("Некорректный ввод");
             }           
+        }       
+        public string getcardnum() {
+            return  cardnum;
         }
-        public void settId(int id)
+        public void setDeb(long debit)
         {
-            if (id > 0)
+            if (debit > 0)
             {
-                this.id = id;
+                this.debit = debit;
             }
             else
             {
                 Console.WriteLine("Некорректный ввод");
             }
         }
-        public int getid() {
-            return id;
+        public long getDeb()
+        {
+            return debit;
         }
-        public string getcardnum() {
-            return  cardnum;
-        }
+
         public static string GetInfo() { return about; }
     }
     class Lab2
@@ -108,7 +101,7 @@ namespace OOP2
             //Phone[] abonents = new Phone[n];
             Console.WriteLine("Заданное время межгородских перпеговоров: ");
             int time = Convert.ToInt32(Console.ReadLine());
-            phone.GetHashCode();
+            Console.WriteLine("Client's ID " + phone.GetHashCode());
         }
     }
 }
